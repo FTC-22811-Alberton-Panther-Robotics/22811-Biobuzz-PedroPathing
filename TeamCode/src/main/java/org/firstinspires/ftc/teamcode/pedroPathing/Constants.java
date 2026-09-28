@@ -69,7 +69,6 @@ public class Constants {
         // Use the FollowerBuilder to construct the follower with our custom components
         return new FollowerBuilder(followerConstants, hardwareMap)
                 .mecanumDrivetrain(driveConstants)
-                //.setLocalizer(localizer) // Inject our fused localizer
                 .pathConstraints(pathConstraints)
                 .pinpointLocalizer(localizerConstants)
                 .build();
