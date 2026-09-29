@@ -50,9 +50,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative OpMode")
+@TeleOp(name="FlywheelTest", group="Test")
 @Disabled
-public class BasicOpMode_Iterative extends OpMode
+public class FlywheelTest extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -69,8 +69,8 @@ public class BasicOpMode_Iterative extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFlyWheel  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightFlyWheel = hardwareMap.get(DcMotor.class, "right_drive");
+        leftFlyWheel  = hardwareMap.get(DcMotor.class, "left_flywheel");
+        rightFlyWheel = hardwareMap.get(DcMotor.class, "right_flywheel");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
