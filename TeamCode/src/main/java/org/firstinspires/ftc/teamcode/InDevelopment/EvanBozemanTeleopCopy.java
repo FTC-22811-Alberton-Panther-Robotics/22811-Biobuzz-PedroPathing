@@ -2,12 +2,7 @@ package org.firstinspires.ftc.teamcode.InDevelopment;
 
 import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
 
-import com.pedropathing.follower.Follower;
-import com.pedropathing.ftc.localization.constants.PinpointConstants;
-import com.pedropathing.ftc.localization.localizers.PinpointLocalizer;
-import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.RobotHardware.ActionManager;
@@ -16,8 +11,8 @@ import org.firstinspires.ftc.teamcode.RobotHardware.RobotHardwareContainer;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
-@TeleOp(name = "BozemanTeleop", group = "01 Bozeman")
-public class TeleopMode_1 extends OpMode {
+@TeleOp(name = "EvanBozemanTeleopCopy", group = "01 Bozeman")
+public class EvanBozemanTeleopCopy extends OpMode {
 
     private RobotHardwareContainer robot;
     private ActionManager actionManager;

@@ -33,8 +33,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -52,14 +50,14 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Shooter Module Test Motors", group="Iterative OpMode")
-
+@TeleOp(name="Basic: Iterative OpMode", group="Iterative OpMode")
+@Disabled
 public class BasicOpMode_Iterative extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotorEx leftFlyWheel = null;
-    private DcMotorEx rightFlyWheel = null;
+    private DcMotor leftFlyWheel = null;
+    private DcMotor rightFlyWheel = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -71,21 +69,17 @@ public class BasicOpMode_Iterative extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFlyWheel  = hardwareMap.get(DcMotorEx.class, "left_drive");
-        rightFlyWheel = hardwareMap.get(DcMotorEx.class, "right_drive");
+        leftFlyWheel  = hardwareMap.get(DcMotor.class, "left_drive");
+        rightFlyWheel = hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftFlyWheel.setDirection(DcMotor.Direction.FORWARD);
+        leftFlyWheel.setDirection(DcMotor.Direction.REVERSE);
         rightFlyWheel.setDirection(DcMotor.Direction.FORWARD);
-        leftFlyWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFlyWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
-
-
     }
 
     /*
@@ -117,8 +111,15 @@ public class BasicOpMode_Iterative extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        leftPower    = gamepad1.left_trigger;
-        rightPower   = gamepad1.right_trigger;
+        double drive = -gamepad1.left_stick_y;
+        double turn  =  gamepad1.right_stick_x;
+        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+
+        // Tank Mode uses one stick to control each wheel.
+        // - This requires no math, but it is hard to drive forward slowly and keep straight.
+        // leftPower  = -gamepad1.left_stick_y ;
+        // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated power to wheels
         leftFlyWheel.setPower(leftPower);
@@ -127,7 +128,6 @@ public class BasicOpMode_Iterative extends OpMode
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-        telemetry.addData("FlyWheel Speed","left (%.2f), right (%.2f)", leftFlyWheel.getVelocity(), rightFlyWheel.getVelocity() );
     }
 
     /*
