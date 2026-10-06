@@ -17,6 +17,7 @@ public class IntakeHardware {
             intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } catch (Exception e) {
             // Hardware not configured yet
+
         }
     }
 
