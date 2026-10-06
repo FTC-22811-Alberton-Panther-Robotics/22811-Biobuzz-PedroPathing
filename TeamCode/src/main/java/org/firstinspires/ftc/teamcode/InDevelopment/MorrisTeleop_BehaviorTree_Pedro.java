@@ -29,7 +29,7 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
 
     @Override
     public void init() {
-        robot = new RobotHardwareContainer(hardwareMap, telemetry);
+        //robot = new RobotHardwareContainer(hardwareMap, telemetry);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
