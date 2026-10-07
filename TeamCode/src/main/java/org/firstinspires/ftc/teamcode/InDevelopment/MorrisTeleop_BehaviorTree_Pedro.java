@@ -47,24 +47,24 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
     public void loop() {
         // 1. PedroPathing TeleOp Driving
         double forward = -gamepad1.left_stick_y;
-        double strafe = gamepad1.left_stick_x;
-        double turn = -gamepad1.right_stick_x;
+        double strafe = -gamepad1.left_stick_x;
+        double turn = -gamepad1.right_stick_x/2;
 
         follower.setTeleOpDrive(forward, strafe, turn, true);
         follower.update();
 
         // 2. Behavior Tree Macro Triggering via Gamepad
-        if (gamepad1.a) {
+        if (gamepad1.left_trigger_pressed) {
             // Trigger Intake Macro: tilt Limelight down to field and start intake
             activeMacroTree = buildIntakeMacro();
             macroRunning = true;
             macroTimer.reset();
-        } else if (gamepad1.b) {
+        } else if (gamepad1.right_trigger_pressed) {
             // Trigger Launch/Score Macro: tilt Limelight up to hive, spin up flywheel, feed transfer
             activeMacroTree = buildLaunchMacro();
             macroRunning = true;
             macroTimer.reset();
-        } else if (gamepad1.x) {
+        } else if (gamepad1.rightBumperWasPressed()) {
             // Cancel / Reset Macro and stop mechanisms
             activeMacroTree = null;
             macroRunning = false;
