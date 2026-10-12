@@ -61,8 +61,8 @@ public class FlywheelTest extends OpMode
     private DcMotorEx leftFlyWheel = null;
     private DcMotorEx rightFlyWheel = null;
     private boolean flyWheelIsOn = false;
-    private int flyWheelTargetSpeed = 3000; // starting target RPM
-    private int speedIncrement = 100; // amount to increase or decrease RPM by each time
+    private int flyWheelTargetSpeed = 1000; // starting target RPM
+    private int speedIncrement = 10; // amount to increase or decrease RPM by each time
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -113,7 +113,7 @@ public class FlywheelTest extends OpMode
 
             if (gamepad1.dpadUpWasPressed()) {
                 flyWheelTargetSpeed += speedIncrement;
-            } else if (gamepad1.dpadUpWasPressed()){
+            } else if (gamepad1.dpadDownWasPressed()){
                 flyWheelTargetSpeed -= speedIncrement;
             }
 
