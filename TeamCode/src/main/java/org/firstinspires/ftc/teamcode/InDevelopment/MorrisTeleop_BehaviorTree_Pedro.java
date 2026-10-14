@@ -95,11 +95,11 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
      */
     private BehaviorNode buildIntakeMacro() {
         return new Sequence(
-                new ActionNode(() -> {
-                    // Tilt Limelight down to field for blob detection / viewing
-                    robot.limelight.prepareForBlobDetection();
-                    return BehaviorNode.Status.SUCCESS;
-                }),
+//                new ActionNode(() -> {
+//                    // Tilt Limelight down to field for blob detection / viewing
+//                    robot.limelight.prepareForBlobDetection();
+//                    return BehaviorNode.Status.SUCCESS;
+//                }),
                 new ActionNode(() -> {
                     // Start intake motors
                     robot.intake.start();
@@ -107,7 +107,7 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
                     return BehaviorNode.Status.SUCCESS;
                 }),
                 new ActionNode(() -> {
-                    // Run intake for 1.5 seconds or until manually cancelled
+                    // Run intake for 1.5 seconds or until manually canceled
                     if (macroTimer.seconds() >= 1.5 || gamepad1.x) {
                         robot.intake.stop();
                         return BehaviorNode.Status.SUCCESS;
