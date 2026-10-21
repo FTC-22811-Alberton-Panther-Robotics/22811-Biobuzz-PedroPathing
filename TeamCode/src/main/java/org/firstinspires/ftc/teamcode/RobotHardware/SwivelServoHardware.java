@@ -14,7 +14,7 @@ public class SwivelServoHardware {
 
     public void init(HardwareMap hardwareMap) {
         try {
-            swivelServo = hardwareMap.get(Servo.class, "swivel_servo");
+            swivelServo = hardwareMap.get(Servo.class, "swivel");
         } catch (Exception e) {
             // Hardware not configured yet
         }

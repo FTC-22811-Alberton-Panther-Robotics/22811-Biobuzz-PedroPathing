@@ -29,7 +29,7 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
 
     @Override
     public void init() {
-        //robot = new RobotHardwareContainer(hardwareMap, telemetry);
+        robot = new RobotHardwareContainer(hardwareMap, telemetry);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startingPose == null ? new Pose() : startingPose);
         follower.update();
@@ -54,17 +54,17 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
         follower.update();
 
         // 2. Behavior Tree Macro Triggering via Gamepad
-        if (gamepad1.left_trigger_pressed) {
+        if (gamepad1.aWasPressed()) {
             // Trigger Intake Macro: tilt Limelight down to field and start intake
             activeMacroTree = buildIntakeMacro();
             macroRunning = true;
             macroTimer.reset();
-        } else if (gamepad1.right_trigger_pressed) {
+        } else if (gamepad1.backWasPressed()) {
             // Trigger Launch/Score Macro: tilt Limelight up to hive, spin up flywheel, feed transfer
             activeMacroTree = buildLaunchMacro();
             macroRunning = true;
             macroTimer.reset();
-        } else if (gamepad1.rightBumperWasPressed()) {
+        } else if (gamepad1.xWasPressed()) {
             // Cancel / Reset Macro and stop mechanisms
             activeMacroTree = null;
             macroRunning = false;
@@ -122,14 +122,14 @@ public class MorrisTeleop_BehaviorTree_Pedro extends OpMode {
      */
     private BehaviorNode buildLaunchMacro() {
         return new Sequence(
-                new ActionNode(() -> {
-                    // Tilt Limelight up to hive for AprilTag verification
-                    robot.limelight.prepareForHiveDetection();
-                    // Spin up flywheel
-                    robot.launcher.shoot(0.85);
-                    macroTimer.reset();
-                    return BehaviorNode.Status.SUCCESS;
-                }),
+//                new ActionNode(() -> {
+//                    // Tilt Limelight up to hive for AprilTag verification
+//                    robot.limelight.prepareForHiveDetection();
+//                    // Spin up flywheel
+//                    robot.launcher.shoot(0.85);
+//                    macroTimer.reset();
+//                    return BehaviorNode.Status.SUCCESS;
+//                }),
                 new ActionNode(() -> {
                     // Wait 0.6 seconds for flywheel to spin up to speed
                     if (macroTimer.seconds() >= 0.6) {

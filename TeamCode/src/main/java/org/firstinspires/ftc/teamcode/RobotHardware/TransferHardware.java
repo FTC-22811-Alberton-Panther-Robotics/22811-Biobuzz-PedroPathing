@@ -1,34 +1,35 @@
 package org.firstinspires.ftc.teamcode.RobotHardware;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Subsystem for transfer / launch initiation mechanism (feeding pollen into the launcher).
  */
 public class TransferHardware {
-    private Servo transferServo = null;
+    private CRServo transferServo = null;
 
     public void init(HardwareMap hardwareMap) {
         try {
-            transferServo = hardwareMap.get(Servo.class, "transfer_servo");
+            transferServo = hardwareMap.get(CRServo.class, "transfer");
         } catch (Exception e) {
             // Hardware not configured yet
         }
     }
 
-    public void setPosition(double position) {
+    public void setPower(double power) {
         if (transferServo != null) {
-            transferServo.setPosition(position);
+            transferServo.setPower(power);
         }
     }
 
     public void feed() {
-        setPosition(0.8);
+        setPower(0.8);
     }
 
     public void reset() {
-        setPosition(0.0);
+        setPower(0.0);
     }
+
+    public void reverse(){setPower(0.8);}
 }

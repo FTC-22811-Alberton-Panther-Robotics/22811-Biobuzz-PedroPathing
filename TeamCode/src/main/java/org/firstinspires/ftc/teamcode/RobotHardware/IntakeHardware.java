@@ -12,7 +12,7 @@ public class IntakeHardware {
 
     public void init(HardwareMap hardwareMap) {
         try {
-            intakeMotor = hardwareMap.get(DcMotor.class, "intake_motor");
+            intakeMotor = hardwareMap.get(DcMotor.class, "intake");
             intakeMotor.setDirection(DcMotor.Direction.FORWARD);
             intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         } catch (Exception e) {
@@ -33,5 +33,12 @@ public class IntakeHardware {
 
     public void stop() {
         setPower(0.0);
+    }
+
+    public void reverse() {
+        if (intakeMotor != null) {
+            intakeMotor.setDirection(DcMotor.Direction.REVERSE);
+            intakeMotor.setPower(1.0);
+        }
     }
 }
