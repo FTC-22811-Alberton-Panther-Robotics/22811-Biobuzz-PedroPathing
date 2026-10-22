@@ -55,7 +55,7 @@ public class MorrisAuto_BehaviorTree_Pedro extends OpMode {
     @Override
     public void start() {
         // Set starting pose based on selection
-        Pose startPose = (gameState.getStartingSide() == GameState.StartingSide.C1_TIPPED_UP) ? FieldLocations.START_C1 : FieldLocations.START_C6;
+        Pose startPose = (gameState.getStartingSide() == GameState.StartingSide.C1_TIPPED_UP) ? FieldLocations.START_HIVE_UP : FieldLocations.START_HIVE_DOWN;
         follower.setStartingPose(startPose);
 
         // Build Behavior Tree based on selected side
@@ -85,7 +85,7 @@ public class MorrisAuto_BehaviorTree_Pedro extends OpMode {
             return new Sequence(
                     new ActionNode(() -> {
                         // 1. Move to Hive C1
-                        Path pathToHive = new Path(new BezierLine(FieldLocations.START_C1, FieldLocations.HIVE_SCORE_C1));
+                        Path pathToHive = new Path(new BezierLine(FieldLocations.START_HIVE_UP, FieldLocations.HIVE_SCORE_C1));
                         pathToHive.setConstantHeadingInterpolation(0);
                         follower.followPath(pathToHive);
                         return BehaviorNode.Status.SUCCESS;
@@ -134,7 +134,7 @@ public class MorrisAuto_BehaviorTree_Pedro extends OpMode {
             return new Sequence(
                     new ActionNode(() -> {
                         // 1. Move to waiting position near hive C6
-                        Path pathToWait = new Path(new BezierLine(FieldLocations.START_C6, FieldLocations.WAITING_POSE_C6));
+                        Path pathToWait = new Path(new BezierLine(FieldLocations.START_HIVE_DOWN, FieldLocations.WAITING_POSE_C6));
                         pathToWait.setConstantHeadingInterpolation(0);
                         follower.followPath(pathToWait);
                         return BehaviorNode.Status.SUCCESS;
